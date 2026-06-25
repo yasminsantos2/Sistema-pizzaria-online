@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from ..models import Cliente
+from ..models.cliente import Cliente
 
 
 class ClienteRepository:
@@ -14,12 +14,6 @@ class ClienteRepository:
         self.db.commit()
         self.db.refresh(cliente)
         return cliente
-
-    def logar_cliente(self, login: str, senha: str) -> Cliente | None:
-        cliente = self.buscar_por_login(login)
-        if cliente and cliente.senha == senha:
-            return cliente
-        return None
 
     def buscar_por_id(self, cliente_id: int) -> Cliente | None:
         return self.db.get(Cliente, cliente_id)
